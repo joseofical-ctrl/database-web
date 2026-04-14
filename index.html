@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio | Base de Datos II - UPLA</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="glass-panel" style="border-radius: 0; border-top: none; border-left: none; border-right: none;">
+        <div class="nav-content">
+            <div class="logo">
+                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--accent)">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>
+                </svg>
+                Portafolio <span>| Sistemas y Computación</span>
+            </div>
+            <ul class="nav-links" style="display: flex; align-items: center;">
+                <li><a href="contruccion.html">Mi Perfil</a></li>
+                <li style="margin-left: 10px; padding-left: 15px; border-left: 1px solid var(--border-color);">
+                    <a href="https://github.com/joseofical-ctrl/database-web" target="_blank" style="display: flex; align-items: center; gap: 6px; color: var(--text-light); transition: color 0.3s;">
+                        <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"></path>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section id="presentacion">
+            <div class="glass-panel hero-card">
+                <div class="hero-decoration"></div>
+                <div class="header-badges">
+                    <span class="badge upla-badge">Universidad Peruana Los Andes</span>
+                    <span class="badge location-badge">Huancayo</span>
+                </div>
+                <h1>Diario de Desarrollo: <br> <span class="text-gradient">Base de Datos II</span></h1>
+                <div class="profile-info">
+                    <p class="philosophy">"Construyendo el puente entre el diseño interactivo y los datos estructurados. Escribo código para resolver problemas reales."</p>
+                    <ul class="course-details">
+                        <li><strong>Estudiante:</strong> Jose Antonio Castro Mayta</li>
+                        <li><strong>Carrera:</strong> Ingeniería de Sistemas y Computación (V Ciclo)</li>
+                        <li><strong>Asignatura:</strong> Base de Datos II (Cód: 332151)</li>
+                        <li><strong>Docente:</strong> Ing. Raul Fernández Bejarano</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="silabo">
+            <h2 class="section-title">Estructura Curricular</h2>
+            <div class="roadmap-grid">
+                <div class="glass-panel unit-card active-unit">
+                    <div class="unit-number">Unidad I</div>
+                    <h3>Conceptos Básicos</h3>
+                    <p>Fundamentos, Modelo Entidad-Relación, Modelo Relacional e Ingeniería de Requisitos.</p>
+                </div>
+                <div class="glass-panel unit-card">
+                    <div class="unit-number">Unidad II</div>
+                    <h3>Normalización y Modelado</h3>
+                    <p>Diseño físico, optimización de redundancia y bases de datos NoSQL.</p>
+                </div>
+                <div class="glass-panel unit-card">
+                    <div class="unit-number">Unidad III</div>
+                    <h3>Vistas y Disparadores</h3>
+                    <p>Lenguaje de consulta avanzado, creación de vistas, eventos y Triggers en SQL.</p>
+                </div>
+                <div class="glass-panel unit-card">
+                    <div class="unit-number">Unidad IV</div>
+                    <h3>Procesamiento Transaccional</h3>
+                    <p>Propiedades ACID, procedimientos almacenados, control de concurrencia y seguridad.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="entregables">
+            <h2 class="section-title">Gestor de Entregables</h2>
+            <div class="dashboard-grid">
+                
+                <div class="glass-panel upload-panel" id="panelInteractivo">
+                    <div id="loginSection">
+                        <div class="panel-header">
+                            <h2>Acceso Estudiante</h2>
+                            <span class="auth-lock">🔐 Requerido</span>
+                        </div>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 20px;">
+                            Ingresa tus credenciales para habilitar la carga de evidencias.
+                        </p>
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="codigo">Usuario</label>
+                                <input type="text" id="codigo" class="form-control" placeholder="Ej: Omen" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Contraseña</label>
+                                <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                            </div>
+                            <button type="submit" class="btn-submit" style="background: var(--upla-blue); margin-top: 10px;">
+                                Iniciar Sesión
+                            </button>
+                        </form>
+                    </div>
+
+                    <div id="uploadSection" class="hidden">
+                        <div class="panel-header">
+                            <h2>Subir Evidencia</h2>
+                            <button id="btnLogout" class="btn-logout">Cerrar Sesión</button>
+                        </div>
+                        
+                        <form id="uploadForm">
+                            <div class="form-group">
+                                <label for="weekSelect">Seleccionar Unidad</label>
+                                <select id="weekSelect" class="form-control" required>
+                                    <option value="Unidad I • Semana 1">Unidad I - Semana 1</option>
+                                    <option value="Unidad I • Semana 2">Unidad I - Semana 2</option>
+                                    <option value="Unidad I • Semana 3">Unidad I - Semana 3</option>
+                                    <option value="Unidad I • Semana 4">Unidad I - Semana 4</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="taskTitle">Título del Informe</label>
+                                <input type="text" id="taskTitle" class="form-control" placeholder="Ej: Informe Técnico Comparativo" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fileInput">Documentos e Imágenes (Múltiples)</label>
+                                <input type="file" id="fileInput" class="form-control" accept=".pdf,.docx,.zip,.jpg,.png,.jpeg" multiple required>
+                                <div id="previewContainer" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;"></div>
+                            </div>
+
+                            <button type="submit" class="btn-submit mt-4">Registrar Entrega</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="history-panel">
+                    <div class="tasks-list" id="tasksList">
+                        </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="editModal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+        <div class="glass-panel" style="padding: 30px; width: 400px; max-width: 90%;">
+            <h2 style="color: white; margin-bottom: 20px; font-size: 1.5rem;">Editar Entrega</h2>
+            <form id="editForm">
+                <input type="hidden" id="editId">
+                <div class="form-group">
+                    <label for="editWeekSelect">Modificar Unidad</label>
+                    <select id="editWeekSelect" class="form-control" required>
+                        <option value="Unidad I • Semana 1">Unidad I - Semana 1</option>
+                        <option value="Unidad I • Semana 2">Unidad I - Semana 2</option>
+                        <option value="Unidad I • Semana 3">Unidad I - Semana 3</option>
+                        <option value="Unidad I • Semana 4">Unidad I - Semana 4</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editTitle">Modificar Título</label>
+                    <input type="text" id="editTitle" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editFileInput">Subir Documentos</label>
+                    <input type="file" id="editFileInput" class="form-control" accept=".pdf,.docx,.zip,.jpg,.png,.jpeg" multiple>
+                    <small style="color: var(--text-muted); font-size: 0.75rem;">* Deja en blanco para mantener los archivos actuales.</small>
+                    
+                    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-light); margin-top: 10px; cursor: pointer;">
+                        <input type="checkbox" id="keepOldFiles" checked>
+                        Sumar a los archivos existentes (No borrar los anteriores)
+                    </label>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-top: 25px;">
+                    <button type="submit" class="btn-submit" style="flex: 1;">Guardar Cambios</button>
+                    <button type="button" id="btnCancelEdit" class="btn-submit" style="flex: 1; background: transparent; border: 1px solid rgba(239, 68, 68, 0.5); color: #f87171;">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="viewDocsModal" class="hidden" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+        <div class="glass-panel" style="padding: 30px; width: 800px; max-width: 95%;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="color: white; font-size: 1.5rem;">Archivos Adjuntos</h2>
+                <button id="btnCloseDocs" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; transition: color 0.3s;">✖</button>
+            </div>
+            
+            <div id="docsListContainer" style="display: flex; flex-direction: column; gap: 12px; max-height: 60vh; overflow-y: auto; padding-right: 10px;">
+                </div>
+        </div>
+    </div>
+
+    <footer class="glass-panel" style="border-radius: 0; border-bottom: none; border-left: none; border-right: none;">
+        <p>Desarrollado de forma nativa para el control académico.</p>
+        <p style="margin-top: 8px; color: var(--accent);">Periodo 2026-I | UPLA</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
