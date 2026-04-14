@@ -19,16 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('fileInput');
     const previewContainer = document.getElementById('previewContainer');
 
+    // VARIABLE GLOBAL PARA LA URL DE RENDER
+    const BASE_URL = 'https://api-database-59ai.onrender.com';
+
     let usuarioAutenticado = false;
 
     // ==========================================
-    // 1. CARGAR DATOS DESDE POSTGRESQL (PÚBLICO Y PRIVADO)
+    // 1. CARGAR DATOS DESDE RENDER (PÚBLICO Y PRIVADO)
     // ==========================================
     async function cargarHistorial() {
         if (!tasksList) return; 
 
         try {
-            const respuesta = await fetch('http://localhost:3000/api/entregas');
+            const respuesta = await fetch(`${BASE_URL}/api/entregas`);
             const entregas = await respuesta.json();
             
             tasksList.innerHTML = ''; 
@@ -121,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('password').value;
 
             try {
-                const respuesta = await fetch('http://localhost:3000/api/login', {
+                const respuesta = await fetch(`${BASE_URL}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ codigo: codigo, password: password })
@@ -139,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert(`❌ ${dataDelServidor.mensaje}`);
                 }
             } catch (error) {
-                alert('No se pudo conectar al servidor Node.js.');
+                alert('No se pudo conectar al servidor en la nube (Render).');
             }
         });
     }
@@ -176,7 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
             files.forEach(file => formData.append('archivos', file)); 
 
             try {
-                const respuesta = await fetch('http://localhost:3000/api/entregas', {
+                const respuesta = await fetch(`${BASE_URL}/api/entregas`, {
                     method: 'POST',
                     body: formData
                 });
@@ -191,13 +194,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('Hubo un error: ' + errorData.error);
                 }
             } catch (error) {
-                alert('No se pudo conectar al servidor. Verifica Node.js.');
+                alert('No se pudo conectar al servidor. Verifica el estado en Render.');
             }
         });
     }
 
     // ==========================================
-    // 5. LÓGICA DE EDICIÓN (ACTUALIZADA PARA ARCHIVOS Y CHECKBOX)
+    // 5. LÓGICA DE EDICIÓN
     // ==========================================
     function asignarEventosEdicion() {
         document.querySelectorAll('.btn-edit').forEach(boton => {
@@ -225,14 +228,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const nuevoWeek = document.getElementById('editWeekSelect').value;
             const nuevoTitle = document.getElementById('editTitle').value;
             const editFileInput = document.getElementById('editFileInput');
-            
-            // NUEVO: Leemos el estado del checkbox
             const keepOldFiles = document.getElementById('keepOldFiles').checked;
 
             const formData = new FormData();
             formData.append('week', nuevoWeek);
             formData.append('title', nuevoTitle);
-            formData.append('keepOld', keepOldFiles); // Enviamos 'true' o 'false'
+            formData.append('keepOld', keepOldFiles);
 
             if (editFileInput && editFileInput.files.length > 0) {
                 Array.from(editFileInput.files).forEach(file => {
@@ -241,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                const respuesta = await fetch(`http://localhost:3000/api/entregas/${id}`, {
+                const respuesta = await fetch(`${BASE_URL}/api/entregas/${id}`, {
                     method: 'PUT',
                     body: formData
                 });
@@ -295,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     archivos.forEach((archivo, index) => {
                         let extension = archivo.split('.').pop().toLowerCase();
-                        const urlArchivo = `http://localhost:3000/uploads/${encodeURIComponent(archivo)}`;
+                        const urlArchivo = `${BASE_URL}/uploads/${encodeURIComponent(archivo)}`;
                         
                         let icono = '📄'; 
                         let botonesHTML = '';
@@ -319,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         
                         } else if (['doc', 'docx', 'xls', 'xlsx'].includes(extension)) {
                             icono = '📘';
-                            botonesHTML = `<button onclick="if(confirm('No se pueden previsualizar documentos de Office en el navegador. ¿Deseas descargarlo a tu computadora para leerlo?')){ forzarDescarga('${urlArchivo}', '${archivo}'); }" style="background: var(--accent); border: none; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">Descargar</button>`;
+                            botonesHTML = `<button onclick="if(confirm('No se pueden previsualizar documentos de Office en el navegador. ¿Deseas descargarlo?')){ forzarDescarga('${urlArchivo}', '${archivo}'); }" style="background: var(--accent); border: none; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">Descargar</button>`;
                         }
 
                         const archivoHTML = `
@@ -358,11 +359,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.btn-delete').forEach(boton => {
             boton.addEventListener('click', async () => {
                 const id = boton.getAttribute('data-id');
-                const confirmar = confirm("⚠️ ¿Estás seguro de que deseas eliminar este registro permanentemente de la Base de Datos?");
+                const confirmar = confirm("⚠️ ¿Estás seguro de que deseas eliminar este registro permanentemente?");
                 
                 if (confirmar) {
                     try {
-                        const respuesta = await fetch(`http://localhost:3000/api/entregas/${id}`, {
+                        const respuesta = await fetch(`${BASE_URL}/api/entregas/${id}`, {
                             method: 'DELETE'
                         });
 
@@ -373,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             alert('Error al intentar eliminar el registro.');
                         }
                     } catch (error) {
-                        alert('Error de conexión con el servidor Node.js.');
+                        alert('Error de conexión con el servidor.');
                     }
                 }
             });
