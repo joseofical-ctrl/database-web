@@ -1,3 +1,6 @@
+/* ==========================================
+   VARIABLES Y CONFIGURACIÓN BASE
+   ========================================== */
 :root {
     --bg-main: #121212;
     --bg-darker: #0d0d0d;
@@ -30,6 +33,9 @@ a:hover { color: var(--accent); }
 .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
 .section-title { font-size: 1.5rem; color: var(--text-light); margin-bottom: 24px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
 
+/* ==========================================
+   PANELES Y NAVEGACIÓN
+   ========================================== */
 .glass-panel {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
@@ -44,6 +50,9 @@ nav { position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px so
 .logo span { color: var(--text-muted); font-weight: normal; font-size: 0.9rem; }
 .nav-links { display: flex; gap: 24px; list-style: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
 
+/* ==========================================
+   SECCIÓN: PRESENTACIÓN
+   ========================================== */
 #presentacion { padding-top: 120px; padding-bottom: 60px; }
 .hero-card { padding: 40px; position: relative; overflow: hidden; }
 .hero-decoration { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(to right, var(--upla-blue), var(--accent)); }
@@ -62,6 +71,9 @@ nav { position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px so
 .tags { display: flex; gap: 10px; flex-wrap: wrap; }
 .tag { padding: 4px 10px; background: var(--bg-darker); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; font-size: 0.75rem; font-family: monospace; }
 
+/* ==========================================
+   SECCIÓN: SÍLABO
+   ========================================== */
 #silabo { padding: 40px 0; }
 .roadmap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
 .unit-card { padding: 24px; transition: transform 0.3s; }
@@ -71,6 +83,9 @@ nav { position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px so
 .unit-card h3 { font-size: 1.1rem; color: var(--text-light); margin-bottom: 8px; }
 .unit-card p { font-size: 0.85rem; color: var(--text-muted); }
 
+/* ==========================================
+   SECCIÓN: ENTREGABLES (DASHBOARD)
+   ========================================== */
 #entregables { padding: 40px 0 80px 0; }
 .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
 @media (min-width: 800px) { .dashboard-grid { grid-template-columns: 4fr 6fr; } }
@@ -87,6 +102,7 @@ nav { position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px so
 .btn-submit { width: 100%; padding: 12px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; text-align: center; border: none; color: white; background: var(--accent); cursor: pointer; transition: background 0.3s;}
 .btn-submit:hover { background: #2563eb; }
 
+/* Lista de Tareas */
 .tasks-list { display: flex; flex-direction: column; gap: 16px; }
 .task-card { padding: 20px; border-left: 3px solid var(--accent); }
 .task-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
@@ -98,10 +114,9 @@ nav { position: fixed; top: 0; width: 100%; z-index: 1000; border-bottom: 1px so
 .btn-link { font-size: 0.8rem; color: var(--text-main); background: rgba(255,255,255,0.03); padding: 6px 10px; border-radius: 4px; border: 1px solid transparent; cursor: pointer;}
 .btn-link:hover { background: rgba(255,255,255,0.08); border-color: var(--border-color); color: var(--text-light); }
 
+/* Varios */
 footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-color); font-size: 0.8rem; color: var(--text-muted); }
-
 .hidden { display: none !important; }
-
 .btn-logout { background: transparent; border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; padding: 4px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; transition: all 0.3s ease; }
 .btn-logout:hover { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.6); }
 .mt-4 { margin-top: 16px; }
@@ -109,4 +124,197 @@ footer { text-align: center; padding: 30px; border-top: 1px solid var(--border-c
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+   ESTILOS DE MODALES (VENTANAS EMERGENTES)
+   ========================================== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-panel {
+    background: var(--bg-main);
+    width: 90%;
+    max-width: 500px;
+    padding: 30px;
+    border: 1px solid var(--border-color);
+}
+
+.modal-panel.large {
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.btn-close-modal:hover {
+    color: #f87171;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-flex {
+    flex: 1;
+}
+
+.btn-cancel {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+}
+
+.btn-cancel:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.help-text {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Previsualización de imágenes al subir */
+.preview-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.preview-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+/* ==========================================
+   ESTILOS DEL GESTOR DE ARCHIVOS (CLOUDINARY)
+   ========================================== */
+.docs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.doc-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: all 0.3s ease;
+}
+
+.doc-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(56, 189, 248, 0.3);
+}
+
+.doc-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.doc-item-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.doc-icon {
+    font-size: 26px;
+}
+
+.doc-name {
+    font-weight: 500;
+    color: #f8fafc;
+    word-break: break-all;
+    font-size: 15px;
+}
+
+.doc-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-doc-action, .btn-doc-link {
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-doc-action:hover, .btn-doc-link:hover {
+    background: rgba(56, 189, 248, 0.25);
+    transform: translateY(-2px);
+}
+
+.doc-img-preview {
+    width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 10px;
 }
