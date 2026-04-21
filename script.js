@@ -19,19 +19,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const fileInput = document.getElementById('fileInput');
     const previewContainer = document.getElementById('previewContainer');
 
-    // VARIABLE GLOBAL PARA LA URL DE RENDER
-    const BASE_URL = 'https://api-database-59ai.onrender.com';
-
     let usuarioAutenticado = false;
 
+    // Constante para base URL
+    const API_URL = 'https://api-database-59ai.onrender.com'; // Actualizado para producción directamente
+
     // ==========================================
-    // 1. CARGAR DATOS DESDE RENDER (PÚBLICO Y PRIVADO)
+    // 1. CARGAR DATOS DESDE POSTGRESQL (PÚBLICO Y PRIVADO)
     // ==========================================
     async function cargarHistorial() {
         if (!tasksList) return; 
 
         try {
-            const respuesta = await fetch(`${BASE_URL}/api/entregas`);
+            const respuesta = await fetch(`${API_URL}/api/entregas`); 
             const entregas = await respuesta.json();
             
             tasksList.innerHTML = ''; 
@@ -39,39 +39,43 @@ document.addEventListener('DOMContentLoaded', () => {
             entregas.forEach(entrega => {
                 const fecha = new Date(entrega.fecha_subida).toLocaleDateString();
 
+                // ¡NUEVO CLOUDINARY! - Limpiamos las URLs largas para que en la tarjeta principal solo se vean los nombres cortos
+                const urls = entrega.nombre_archivo ? entrega.nombre_archivo.split(',') : [];
+                const nombresCortos = urls.map(url => url.split('/').pop().trim()).join(', ');
+
                 let botonesAccion = `
-                    <button class="btn-link btn-view-docs" data-files="${entrega.nombre_archivo}" style="background: rgba(59, 130, 246, 0.1); color: #60a5fa; border-color: rgba(59, 130, 246, 0.3); cursor: pointer;">
+                    <button class="btn-link btn-view-docs" data-files="${entrega.nombre_archivo}">
                         🔗 Ver Documentos
                     </button>
                 `;
 
                 if (usuarioAutenticado) {
                     botonesAccion += `
-                        <button class="btn-link btn-edit" data-id="${entrega.id}" data-week="${entrega.unidad_semana}" data-title="${entrega.titulo}" style="background: rgba(245, 158, 11, 0.1); color: #fbbf24; border-color: rgba(245, 158, 11, 0.3); cursor: pointer;">
+                        <button class="btn-link btn-edit btn-action-edit" data-id="${entrega.id}" data-week="${entrega.unidad_semana}" data-title="${entrega.titulo}">
                             ✏️ Editar
                         </button>
-                        <button class="btn-link btn-delete" data-id="${entrega.id}" style="background: rgba(239, 68, 68, 0.1); color: #f87171; border-color: rgba(239, 68, 68, 0.3); cursor: pointer;">
+                        <button class="btn-link btn-delete btn-action-delete" data-id="${entrega.id}">
                             🗑️ Eliminar
                         </button>
                     `;
                 }
 
                 const taskHTML = `
-                    <div class="glass-panel task-card" style="animation: slideDown 0.4s ease forwards; margin-bottom: 16px;">
+                    <div class="glass-panel task-card task-card-anim">
                         <div class="task-header">
                             <div>
                                 <span class="task-week">${entrega.unidad_semana}</span>
                                 <h3 class="task-title">${entrega.titulo}</h3>
                                 <p class="task-desc">
                                     Subido el: ${fecha}<br>
-                                    <span style="color: var(--accent); font-size: 0.8rem; font-family: monospace;">
-                                        📄 ${entrega.nombre_archivo} (${entrega.peso_mb || '0'} MB)
+                                    <span class="task-file-info">
+                                        📄 ${nombresCortos} (${entrega.peso_mb || '0'} MB)
                                     </span>
                                 </p>
                             </div>
-                            <span class="status-badge" style="background: rgba(59, 130, 246, 0.1); color: #60a5fa; border-color: rgba(59, 130, 246, 0.2);">Registrado</span>
+                            <span class="status-badge status-badge-registered">Registrado</span>
                         </div>
-                        <div class="task-links" style="display: flex; justify-content: space-between; gap: 10px;">
+                        <div class="task-links task-actions">
                             ${botonesAccion}
                         </div>
                     </div>
@@ -105,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     reader.onload = (e) => {
                         const img = document.createElement('img');
                         img.src = e.target.result;
-                        img.style.cssText = 'width:60px; height:60px; object-fit:cover; border-radius:4px; border:1px solid var(--accent); margin:5px;';
+                        img.className = 'preview-img';
                         previewContainer.appendChild(img);
                     };
                     reader.readAsDataURL(file);
@@ -124,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('password').value;
 
             try {
-                const respuesta = await fetch(`${BASE_URL}/api/login`, {
+                const respuesta = await fetch(`${API_URL}/api/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ codigo: codigo, password: password })
@@ -142,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert(`❌ ${dataDelServidor.mensaje}`);
                 }
             } catch (error) {
-                alert('No se pudo conectar al servidor en la nube (Render).');
+                alert('No se pudo conectar al servidor Node.js.');
             }
         });
     }
@@ -179,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
             files.forEach(file => formData.append('archivos', file)); 
 
             try {
-                const respuesta = await fetch(`${BASE_URL}/api/entregas`, {
+                const respuesta = await fetch(`${API_URL}/api/entregas`, {
                     method: 'POST',
                     body: formData
                 });
@@ -187,14 +191,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (respuesta.ok) {
                     uploadForm.reset();
                     if(previewContainer) previewContainer.innerHTML = '';
-                    alert(`¡Éxito! Registrados y guardados en el servidor: ${files.length} archivos.`);
+                    alert(`¡Éxito! Registrados y guardados en la nube: ${files.length} archivos.`);
                     cargarHistorial();
                 } else {
                     const errorData = await respuesta.json();
                     alert('Hubo un error: ' + errorData.error);
                 }
             } catch (error) {
-                alert('No se pudo conectar al servidor. Verifica el estado en Render.');
+                alert('No se pudo conectar al servidor. Verifica Node.js.');
             }
         });
     }
@@ -233,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const formData = new FormData();
             formData.append('week', nuevoWeek);
             formData.append('title', nuevoTitle);
-            formData.append('keepOld', keepOldFiles);
+            formData.append('keepOld', keepOldFiles); 
 
             if (editFileInput && editFileInput.files.length > 0) {
                 Array.from(editFileInput.files).forEach(file => {
@@ -242,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             try {
-                const respuesta = await fetch(`${BASE_URL}/api/entregas/${id}`, {
+                const respuesta = await fetch(`${API_URL}/api/entregas/${id}`, {
                     method: 'PUT',
                     body: formData
                 });
@@ -290,13 +294,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 docsListContainer.innerHTML = ''; 
 
                 if (!archivosString || archivosString === 'null') {
-                    docsListContainer.innerHTML = '<p style="color: var(--text-muted); text-align: center;">No hay archivos adjuntos.</p>';
+                    docsListContainer.innerHTML = '<p class="empty-docs">No hay archivos adjuntos.</p>';
                 } else {
                     const archivos = archivosString.split(',').map(archivo => archivo.trim());
 
                     archivos.forEach((archivo, index) => {
-                        let extension = archivo.split('.').pop().toLowerCase();
-                        const urlArchivo = `${BASE_URL}/uploads/${encodeURIComponent(archivo)}`;
+                        // ¡NUEVO CLOUDINARY! - Usar la URL directa y extraer el nombre corto
+                        const urlArchivo = archivo; 
+                        const nombreCorto = urlArchivo.split('/').pop(); 
+                        let extension = nombreCorto.split('.').pop().toLowerCase();
                         
                         let icono = '📄'; 
                         let botonesHTML = '';
@@ -305,32 +311,33 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (['jpg', 'jpeg', 'png', 'gif'].includes(extension)) {
                             icono = '🖼️';
                             botonesHTML = `
-                                <button onclick="document.getElementById('img-prev-${index}').classList.toggle('hidden')" style="background: var(--accent); border: none; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">👁️ Ver</button>
-                                <button onclick="forzarDescarga('${urlArchivo}', '${archivo}')" style="background: #10b981; border: none; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">⬇️ Descargar</button>
+                                <button class="btn-doc-action btn-doc-view" data-action="toggle-img" data-img-id="img-prev-${index}">👁️ Ver</button>
+                                <button class="btn-doc-action btn-doc-download" data-action="download" data-url="${urlArchivo}" data-name="${nombreCorto}">⬇️ Descargar</button>
                             `;
-                            extraHTML = `<img id="img-prev-${index}" src="${urlArchivo}" class="hidden" style="width: 100%; border-radius: 6px; margin-top: 10px; border: 1px solid var(--border-color);">`;
+                            extraHTML = `<img id="img-prev-${index}" src="${urlArchivo}" class="hidden doc-img-preview" alt="Vista previa de documento">`;
                         
                         } else if (['pdf'].includes(extension)) {
                             icono = '📕';
-                            botonesHTML = `<a href="${urlArchivo}" target="_blank" style="background: var(--upla-blue); border: none; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem; text-decoration: none; text-align: center;">Abrir PDF</a>`;
+                            botonesHTML = `<a href="${urlArchivo}" target="_blank" class="btn-doc-link">Abrir PDF</a>`;
                         
                         } else if (['zip', 'rar'].includes(extension)) {
                             icono = '📦';
-                            botonesHTML = `<button onclick="if(confirm('El navegador no puede abrir archivos comprimidos. ¿Deseas descargarlo?')){ forzarDescarga('${urlArchivo}', '${archivo}'); }" style="background: var(--accent); border: none; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">Descargar</button>`;
+                            botonesHTML = `<button class="btn-doc-action btn-doc-download" data-action="download-zip" data-url="${urlArchivo}" data-name="${nombreCorto}">Descargar</button>`;
                         
                         } else if (['doc', 'docx', 'xls', 'xlsx'].includes(extension)) {
                             icono = '📘';
-                            botonesHTML = `<button onclick="if(confirm('No se pueden previsualizar documentos de Office en el navegador. ¿Deseas descargarlo?')){ forzarDescarga('${urlArchivo}', '${archivo}'); }" style="background: var(--accent); border: none; color: white; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.75rem;">Descargar</button>`;
+                            botonesHTML = `<button class="btn-doc-action btn-doc-download" data-action="download-doc" data-url="${urlArchivo}" data-name="${nombreCorto}">Descargar</button>`;
                         }
 
+                        // ¡NUEVO CLOUDINARY! - Mostramos "nombreCorto" en la vista HTML en lugar de "archivo" (que ahora es una URL larga)
                         const archivoHTML = `
-                            <div style="background: var(--bg-darker); padding: 12px; border: 1px solid rgba(255,255,255,0.05); border-radius: 6px; display: flex; flex-direction: column;">
-                                <div style="display: flex; align-items: center; justify-content: space-between;">
-                                    <div style="display: flex; align-items: center; gap: 10px; overflow: hidden; width: 60%;">
-                                        <span style="font-size: 1.5rem;">${icono}</span>
-                                        <span style="color: var(--text-light); font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: monospace;" title="${archivo}">${archivo}</span>
+                            <div class="doc-item">
+                                <div class="doc-item-row">
+                                    <div class="doc-item-info">
+                                        <span class="doc-icon">${icono}</span>
+                                        <span class="doc-name" title="${nombreCorto}">${nombreCorto}</span>
                                     </div>
-                                    <div style="display: flex; gap: 5px; justify-content: flex-end;">
+                                    <div class="doc-actions">
                                         ${botonesHTML}
                                     </div>
                                 </div>
@@ -340,9 +347,33 @@ document.addEventListener('DOMContentLoaded', () => {
                         docsListContainer.insertAdjacentHTML('beforeend', archivoHTML);
                     });
                 }
-
+                
+                asignarEventosAccionesDocumentos();
                 viewDocsModal.classList.remove('hidden');
             });
+        });
+    }
+
+    function asignarEventosAccionesDocumentos() {
+        const docActions = document.querySelectorAll('.btn-doc-action');
+        docActions.forEach(btn => {
+            btn.onclick = (e) => {
+                const action = e.target.getAttribute('data-action');
+                if (action === 'toggle-img') {
+                    const imgId = e.target.getAttribute('data-img-id');
+                    document.getElementById(imgId).classList.toggle('hidden');
+                } else if (action === 'download' || action === 'download-zip' || action === 'download-doc') {
+                    const url = e.target.getAttribute('data-url');
+                    const name = e.target.getAttribute('data-name');
+                    if (action === 'download-zip' && !confirm('El navegador no puede abrir archivos comprimidos. ¿Deseas descargarlo?')) {
+                        return;
+                    }
+                    if (action === 'download-doc' && !confirm('No se pueden previsualizar documentos de Office en el navegador. ¿Deseas descargarlo a tu computadora para leerlo?')) {
+                        return;
+                    }
+                    forzarDescarga(url, name);
+                }
+            };
         });
     }
 
@@ -359,11 +390,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelectorAll('.btn-delete').forEach(boton => {
             boton.addEventListener('click', async () => {
                 const id = boton.getAttribute('data-id');
-                const confirmar = confirm("⚠️ ¿Estás seguro de que deseas eliminar este registro permanentemente?");
+                const confirmar = confirm("⚠️ ¿Estás seguro de que deseas eliminar este registro permanentemente de la Base de Datos?");
                 
                 if (confirmar) {
                     try {
-                        const respuesta = await fetch(`${BASE_URL}/api/entregas/${id}`, {
+                        const respuesta = await fetch(`${API_URL}/api/entregas/${id}`, {
                             method: 'DELETE'
                         });
 
@@ -374,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             alert('Error al intentar eliminar el registro.');
                         }
                     } catch (error) {
-                        alert('Error de conexión con el servidor.');
+                        alert('Error de conexión con el servidor Node.js.');
                     }
                 }
             });
