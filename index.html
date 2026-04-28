@@ -40,65 +40,34 @@
 
     <main class="container">
         <section id="presentacion">
-            <div class="glass-panel hero-card">
-                <div class="hero-decoration"></div>
-                <div class="header-badges">
-                    <span class="badge upla-badge">Universidad Peruana Los Andes</span>
-                    <span class="badge location-badge">Huancayo</span>
+            <div class="hero-layout">
+                <div class="glass-panel hero-card">
+                    <div class="hero-decoration"></div>
+                    <div class="header-badges">
+                        <span class="badge upla-badge">Universidad Peruana Los Andes</span>
+                        <span class="badge location-badge">Huancayo</span>
+                    </div>
+                    <h1>Diario de Desarrollo: <br> <span class="text-gradient">Base de Datos II</span></h1>
+                    <div class="profile-info">
+                        <p class="philosophy">"Construyendo el puente entre el diseño interactivo y los datos
+                            estructurados. Escribo código para resolver problemas reales."</p>
+                        <ul class="course-details">
+                            <li><strong>Estudiante:</strong> Jose Antonio Castro Mayta</li>
+                            <li><strong>Carrera:</strong> Ingeniería de Sistemas y Computación (V Ciclo)</li>
+                            <li><strong>Asignatura:</strong> Base de Datos II (Cód: 332151)</li>
+                            <li><strong>Docente:</strong> Ing. Raul Fernández Bejarano</li>
+                        </ul>
+                    </div>
                 </div>
-                <h1>Diario de Desarrollo: <br> <span class="text-gradient">Base de Datos II</span></h1>
-                <div class="profile-info">
-                    <p class="philosophy">"Construyendo el puente entre el diseño interactivo y los datos estructurados.
-                        Escribo código para resolver problemas reales."</p>
-                    <ul class="course-details">
-                        <li><strong>Estudiante:</strong> Jose Antonio Castro Mayta</li>
-                        <li><strong>Carrera:</strong> Ingeniería de Sistemas y Computación (V Ciclo)</li>
-                        <li><strong>Asignatura:</strong> Base de Datos II (Cód: 332151)</li>
-                        <li><strong>Docente:</strong> Ing. Raul Fernández Bejarano</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="silabo">
-            <h2 class="section-title">Estructura Curricular</h2>
-            <div class="roadmap-grid">
-                <div class="glass-panel unit-card active-unit">
-                    <div class="unit-number">Unidad I</div>
-                    <h3>Conceptos Básicos</h3>
-                    <p>Fundamentos, Modelo Entidad-Relación, Modelo Relacional e Ingeniería de Requisitos.</p>
-                </div>
-                <div class="glass-panel unit-card">
-                    <div class="unit-number">Unidad II</div>
-                    <h3>Normalización y Modelado</h3>
-                    <p>Diseño físico, optimización de redundancia y bases de datos NoSQL.</p>
-                </div>
-                <div class="glass-panel unit-card">
-                    <div class="unit-number">Unidad III</div>
-                    <h3>Vistas y Disparadores</h3>
-                    <p>Lenguaje de consulta avanzado, creación de vistas, eventos y Triggers en SQL.</p>
-                </div>
-                <div class="glass-panel unit-card">
-                    <div class="unit-number">Unidad IV</div>
-                    <h3>Procesamiento Transaccional</h3>
-                    <p>Propiedades ACID, procedimientos almacenados, control de concurrencia y seguridad.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="entregables">
-            <h2 class="section-title">Gestor de Entregables</h2>
-            <div class="dashboard-grid">
 
                 <div class="glass-panel upload-panel" id="panelInteractivo">
+
                     <div id="loginSection">
                         <div class="panel-header">
                             <h2>Acceso Estudiante</h2>
                             <span class="auth-lock">🔐 Requerido</span>
                         </div>
-                        <p class="auth-subtitle">
-                            Ingresa tus credenciales para habilitar la carga de evidencias.
-                        </p>
+                        <p class="auth-subtitle">Ingresa tus credenciales para habilitar la carga de evidencias.</p>
                         <form id="loginForm">
                             <div class="form-group">
                                 <label for="codigo">Usuario</label>
@@ -109,27 +78,34 @@
                                 <input type="password" id="password" class="form-control" placeholder="••••••••"
                                     required>
                             </div>
-                            <button type="submit" class="btn-submit btn-login">
-                                Iniciar Sesión
-                            </button>
+                            <button type="submit" class="btn-submit btn-login">Iniciar Sesión</button>
                         </form>
                     </div>
 
                     <div id="uploadSection" class="hidden">
-                        <div class="panel-header">
+                        <div class="panel-header" style="margin-bottom: 25px;">
                             <h2>Subir Evidencia</h2>
                             <button id="btnLogout" class="btn-logout">Cerrar Sesión</button>
                         </div>
-
                         <form id="uploadForm">
-                            <div class="form-group">
-                                <label for="weekSelect">Seleccionar Unidad</label>
-                                <select id="weekSelect" class="form-control" required>
-                                    <option value="Unidad I • Semana 1">Unidad I - Semana 1</option>
-                                    <option value="Unidad I • Semana 2">Unidad I - Semana 2</option>
-                                    <option value="Unidad I • Semana 3">Unidad I - Semana 3</option>
-                                    <option value="Unidad I • Semana 4">Unidad I - Semana 4</option>
-                                </select>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="unitSelect">Unidad</label>
+                                    <select id="unitSelect" class="form-control" required>
+                                        <option value="" disabled selected>Unidad...</option>
+                                        <option value="Unidad I">Unidad I</option>
+                                        <option value="Unidad II">Unidad II</option>
+                                        <option value="Unidad III">Unidad III</option>
+                                        <option value="Unidad IV">Unidad IV</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="weekSelect">Semana</label>
+                                    <select id="weekSelect" class="form-control" required disabled>
+                                        <option value="" disabled selected>Elige Sem...</option>
+                                    </select>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -139,7 +115,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="fileInput">Documentos e Imágenes (Múltiples)</label>
+                                <label for="fileInput">Documentos e Imágenes</label>
                                 <input type="file" id="fileInput" class="form-control"
                                     accept=".pdf,.docx,.zip,.jpg,.png,.jpeg" multiple required>
                                 <div id="previewContainer" class="preview-container"></div>
@@ -149,10 +125,42 @@
                         </form>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="history-panel">
-                    <div class="tasks-list" id="tasksList">
-                    </div>
+        <section id="silabo">
+            <div class="section-header-flex">
+                <h2 class="section-title" style="margin-bottom: 0; border: none;">Estructura Curricular & Entregables
+                </h2>
+                <button id="btnVerTodo" class="btn-link" style="display: none;">Ver Todas las Unidades</button>
+            </div>
+            <p class="section-subtitle-text">Selecciona una unidad para filtrar los trabajos cargados.</p>
+
+            <div class="roadmap-grid">
+                <div class="glass-panel unit-card filter-unit" data-unit="Unidad I">
+                    <div class="unit-number">Unidad I</div>
+                    <h3>Conceptos Básicos</h3>
+                    <p>Fundamentos, Modelo Entidad-Relación, Modelo Relacional e Ingeniería de Requisitos.</p>
+                </div>
+                <div class="glass-panel unit-card filter-unit" data-unit="Unidad II">
+                    <div class="unit-number">Unidad II</div>
+                    <h3>Normalización y Modelado</h3>
+                    <p>Diseño físico, optimización de redundancia y bases de datos NoSQL.</p>
+                </div>
+                <div class="glass-panel unit-card filter-unit" data-unit="Unidad III">
+                    <div class="unit-number">Unidad III</div>
+                    <h3>Vistas y Disparadores</h3>
+                    <p>Lenguaje de consulta avanzado, creación de vistas, eventos y Triggers en SQL.</p>
+                </div>
+                <div class="glass-panel unit-card filter-unit" data-unit="Unidad IV">
+                    <div class="unit-number">Unidad IV</div>
+                    <h3>Procesamiento Transaccional</h3>
+                    <p>Propiedades ACID, procedimientos almacenados, control de concurrencia y seguridad.</p>
+                </div>
+            </div>
+
+            <div id="historialContainer" class="history-panel">
+                <div class="tasks-list grid-tasks" id="tasksList">
                 </div>
             </div>
         </section>
@@ -163,32 +171,35 @@
             <h2 class="modal-title">Editar Entrega</h2>
             <form id="editForm">
                 <input type="hidden" id="editId">
-                <div class="form-group">
-                    <label for="editWeekSelect">Modificar Unidad</label>
-                    <select id="editWeekSelect" class="form-control" required>
-                        <option value="Unidad I • Semana 1">Unidad I - Semana 1</option>
-                        <option value="Unidad I • Semana 2">Unidad I - Semana 2</option>
-                        <option value="Unidad I • Semana 3">Unidad I - Semana 3</option>
-                        <option value="Unidad I • Semana 4">Unidad I - Semana 4</option>
-                    </select>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editUnitSelect">Modificar Unidad</label>
+                        <select id="editUnitSelect" class="form-control" required>
+                            <option value="Unidad I">Unidad I</option>
+                            <option value="Unidad II">Unidad II</option>
+                            <option value="Unidad III">Unidad III</option>
+                            <option value="Unidad IV">Unidad IV</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editWeekSelect">Modificar Semana</label>
+                        <select id="editWeekSelect" class="form-control" required>
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="editTitle">Modificar Título</label>
                     <input type="text" id="editTitle" class="form-control" required>
                 </div>
-
                 <div class="form-group">
                     <label for="editFileInput">Subir Documentos</label>
                     <input type="file" id="editFileInput" class="form-control" accept=".pdf,.docx,.zip,.jpg,.png,.jpeg"
                         multiple>
                     <small class="help-text">* Deja en blanco para mantener los archivos actuales.</small>
-
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="keepOldFiles" checked>
-                        Sumar a los archivos existentes (No borrar los anteriores)
+                    <label class="checkbox-label" style="margin-top: 10px;">
+                        <input type="checkbox" id="keepOldFiles" checked> Sumar a los archivos existentes
                     </label>
                 </div>
-
                 <div class="button-group">
                     <button type="submit" class="btn-submit btn-flex">Guardar Cambios</button>
                     <button type="button" id="btnCancelEdit" class="btn-submit btn-flex btn-cancel">Cancelar</button>
@@ -203,9 +214,7 @@
                 <h2 class="modal-title" style="margin-bottom:0;">Archivos Adjuntos</h2>
                 <button id="btnCloseDocs" class="btn-close-modal">✖</button>
             </div>
-
-            <div id="docsListContainer" class="docs-list">
-            </div>
+            <div id="docsListContainer" class="docs-list"></div>
         </div>
     </div>
 
