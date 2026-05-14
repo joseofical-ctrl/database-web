@@ -324,11 +324,19 @@ nav {
 }
 
 .task-week {
-    font-size: 0.7rem;
-    font-family: monospace;
-    color: var(--accent);
-    display: block;
-    margin-bottom: 5px;
+    font-size: 0.8rem;
+    font-family: var(--font-family);
+    font-weight: 700;
+    color: #ffffff;
+    background: linear-gradient(135deg, var(--upla-blue), var(--accent));
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .task-title {
