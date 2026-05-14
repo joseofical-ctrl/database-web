@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let entregasGlobales = [];
     let filtroUnidad = null;
 
-    const API_URL = 'https://api-database-59ai.onrender.com';
+    const API_URL = 'https://database-backend-production-bcf7.up.railway.app';
 
     // ==========================================
     // 0. MAPEO DE UNIDADES Y SEMANAS (EVITA ERRORES)
