@@ -80,8 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderTareas() {
         tasksList.innerHTML = '';
 
+        // ¡AQUÍ ESTÁ LA MAGIA DEL FILTRO CORREGIDO!
         let entregasFiltradas = filtroUnidad
-            ? entregasGlobales.filter(e => e.unidad_semana.startsWith(filtroUnidad))
+            ? entregasGlobales.filter(e => e.unidad_semana.startsWith(filtroUnidad + ' •'))
             : [...entregasGlobales];
 
         entregasFiltradas.sort((a, b) => {
