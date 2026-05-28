@@ -1,0 +1,48 @@
+body { 
+    font-family: 'Lato', sans-serif; 
+    background-color: #f1f5f9; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+}
+
+h1, h2, h3, h4, .font-poppins { 
+    font-family: 'Poppins', sans-serif; 
+}
+
+.code-font { 
+    font-family: 'JetBrains Mono', monospace; 
+}
+
+/* Diseño de la barra de desplazamiento personalizada */
+.custom-scrollbar::-webkit-scrollbar { 
+    height: 8px; 
+    width: 8px; 
+}
+.custom-scrollbar::-webkit-scrollbar-track { 
+    background: transparent; 
+    border-radius: 10px; 
+}
+.custom-scrollbar::-webkit-scrollbar-thumb { 
+    background: #cbd5e1; 
+    border-radius: 10px; 
+    border: 2px solid transparent; 
+    background-clip: padding-box; 
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover { 
+    background-color: #94a3b8; 
+}
+
+/* Ocultar barra de desplazamiento por defecto pero permitir scroll táctil/mouse */
+.hide-scroll::-webkit-scrollbar { 
+    display: none; 
+}
+.hide-scroll { 
+    -ms-overflow-style: none; 
+    scrollbar-width: none; 
+}
+
+/* Estilo especial para la tarjeta de Análisis Técnico */
+.analysis-box { 
+    background: linear-gradient(to right, #f8fafc, #ffffff); 
+    border-left: 4px solid #3b82f6; 
+}
